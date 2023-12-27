@@ -3,7 +3,8 @@ from os.path import exists
 from database import db_models
 from database.db_engine import DatabaseEngine
 from sqlmodel import SQLModel
-from yaml import FullLoader, load
+from dotenv import load_dotenv
+from os import getenv
 
 
 def create_db_and_tables(database_name: str):
@@ -18,11 +19,10 @@ def create_db_and_tables(database_name: str):
 
 if __name__ == "__main__":
 
-    # Load base configs
-    with open("base_conf.yaml", "r") as conf:
-        conf_data = load(conf, Loader=FullLoader)
+    # Get db name from .env file
+    load_dotenv()
+    database_name = getenv('DB_NAME')
 
     # Create database file if not exists
-    database_name = conf_data["database_name"]
     if not exists(database_name):
         create_db_and_tables(database_name)
