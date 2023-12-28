@@ -1,28 +1,21 @@
 from os.path import exists
 
 from database import db_models
-from database.db_engine import DatabaseEngine
-from sqlmodel import SQLModel
+from database.db_utils import create_db_engine, create_db_and_tables
 from dotenv import load_dotenv
-from os import getenv
-
-
-def create_db_and_tables(database_name: str):
-    """Create SQLite database and start the engine
-
-    Args:
-        engine: Database engine object that handles the communication with the database
-    """
-    db_engine = DatabaseEngine(database_name)
-    SQLModel.metadata.create_all(db_engine.engine)
+from os import getenv, getcwd
+from os.path import join
 
 
 if __name__ == "__main__":
 
     # Get db name from .env file
-    load_dotenv()
-    database_name = getenv('DB_NAME')
+    load_dotenv('../.env')
+    database_path = join(getcwd(), 'database', getenv('DB_NAME'))
 
-    # Create database file if not exists
-    if not exists(database_name):
-        create_db_and_tables(database_name)
+    # Initiate db engine
+    db_engine = create_db_engine(database_path)
+
+    # Create database file if not exists (based on db_models.py)
+    if not exists(database_path):
+        create_db_and_tables(db_engine)
