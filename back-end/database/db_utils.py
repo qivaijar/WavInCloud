@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import List
 
 from db_models import AudioData
@@ -20,3 +21,7 @@ def add_to_db(input_data: AudioData | List[AudioData], database_engine):
     with Session(database_engine) as session:
         [session.add(data) for data in input_data]
         session.commit()
+
+
+def get_current_datetime():
+    return datetime.now().strftime("%Y/%m/%d,%H:%M:%S")
