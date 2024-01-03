@@ -21,3 +21,10 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# concept
+# Backend will read a directory contains audio files
+# Backend will create a database (if not exist yet), and save the audio data
+# Backend will send the audio data, reading the file based on path as a buffer
+# Frontend will process the sent buffer
+# Need md5 sum checking to check if similar file with different name exists
