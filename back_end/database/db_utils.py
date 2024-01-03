@@ -1,7 +1,10 @@
 from datetime import datetime
+from hashlib import md5
+from os import PathLike
 from typing import List
 
 from db_models import AudioData
+from soundfile import SoundFile
 from sqlmodel import Session, SQLModel, create_engine
 
 
@@ -25,3 +28,12 @@ def add_to_db(input_data: AudioData | List[AudioData], database_engine):
 
 def get_current_datetime():
     return datetime.now().strftime("%Y/%m/%d,%H:%M:%S")
+
+
+def get_audio_buffer(path_to_audio: str | PathLike):
+    file = SoundFile(path_to_audio)
+    return file.buffer_read()
+
+
+def get_md5(buffer_data: bytes | bytearray):
+    return md5(buffer_data).hexdigest()
