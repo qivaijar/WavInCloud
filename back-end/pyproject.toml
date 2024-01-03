@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.10"
 sqlmodel = "^0.0.14"
 python-dotenv = "^1.0.0"
+soundfile = "^0.12.1"
 
 
 [build-system]
