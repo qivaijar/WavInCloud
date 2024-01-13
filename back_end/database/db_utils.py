@@ -35,5 +35,6 @@ def get_audio_buffer(path_to_audio: str | PathLike):
     return file.buffer_read()
 
 
-def get_md5(buffer_data: bytes | bytearray):
+def get_audio_md5(path_to_audio: str | PathLike):
+    buffer_data = get_audio_buffer(path_to_audio)
     return md5(buffer_data).hexdigest()
